@@ -18,5 +18,4 @@ const (
 func isHttpMethod(e string) bool {
 	e = strings.ToUpper(e)
 	return e == POST || e == GET || e == DELETE || e == PUT || e == PATCH
-
 }

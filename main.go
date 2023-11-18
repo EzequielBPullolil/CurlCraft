@@ -16,16 +16,18 @@ func main() {
 		url, methods = complexArgumentParser()
 	} else {
 		url, method = simpleArgumentParser()
-
 	}
-	fmt.Println("El url es " + url)
-
 	if len(methods) == 0 {
-		fmt.Println("Metodo " + method)
+		resp, err := makeRequest(url, method)
+		if err == nil {
+			fmt.Print(resp)
+		}
 	} else {
-		fmt.Println("Metodos")
-		for _, v := range methods {
-			fmt.Println(v)
+		for _, m := range methods {
+			resp, err := makeRequest(url, m)
+			if err == nil {
+				fmt.Print(resp)
+			}
 		}
 	}
 }
