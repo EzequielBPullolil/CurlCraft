@@ -2,10 +2,9 @@
 A Go-developed CLI aimed at enhancing the CURL tool by adding functionalities to improve the user experience and overall usability.
 
 ## Use
-Nearly all operations performed in CURL can be executed in CurlCraft with only minimal adjustments.
+Most operations that can be carried out in CURL can be performed in CurlCraft with minimal adjustments.
 
-
-Nevertheless, there is a notable difference in behavior. In contrast to CURL, CurlCraft doesn't automatically yield an HTML response unless explicitly specified. By default, it provides solely the header response. The default output from the request includes the following data:
+However, there is a notable divergence in behavior. Unlike CURL, CurlCraft does not automatically produce an HTML response unless explicitly indicated. By default, it furnishes only the header response. The default output from the request encompasses the following data:
 
     Status: <http_status>
     HTTP: HTTP/HTTPs
@@ -21,7 +20,12 @@ In CurlCraft, akin to CURL, when a request is made to an HTTP/HTTPS link without
 ```Bash
   CurlCraft http://ejemplo.com
 ```
-
+To obtain the file/response from the link, you need to make the request by adding the -h flag.
+```Bash
+  CurlCraft http://ejemplo.com -h
+  OR
+  CurlCraft -h http://ejemplo.com 
+```
 ## Request with http methods
 In CurlCraft, requests can be created with any HTTP method using its keyword.
 
