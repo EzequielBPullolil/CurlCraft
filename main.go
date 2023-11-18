@@ -1,13 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 func main() {
-	url, methods := argumentManager()
+	var url URL
+	var method http_method
+	var methods []http_method
+	complexFlag := flag.Bool("complex", false, "Allows complex requests")
 
-	fmt.Println("Request to " + url)
-	for _, v := range methods {
-		fmt.Println("Request to " + v)
+	flag.Parse()
+	if *complexFlag {
+		url, methods = complexArgumentParser()
+	} else {
+		url, method = simpleArgumentParser()
 
+	}
+	fmt.Println("El url es " + url)
+
+	if len(methods) == 0 {
+		fmt.Println("Metodo " + method)
+	} else {
+		fmt.Println("Metodos")
+		for _, v := range methods {
+			fmt.Println(v)
+		}
 	}
 }
