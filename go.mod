@@ -1,3 +1,3 @@
-module github.com/EzequielK-source/betterCurl
+module github.com/EzequielK-source/CurlCraft
 
 go 1.21.3
