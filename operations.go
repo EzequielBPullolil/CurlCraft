@@ -24,4 +24,10 @@ func makeRequest(u URL, m http_method) {
 	}
 	printResponse(res)
 }
+func makeComplexRequest(u URL, ms []http_method) {
+	fmt.Println("Complex request to " + u)
+	for _, v := range ms {
+		fmt.Printf("Method: %s \n", v)
+		makeRequest(u, v)
+	}
 }
