@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 )
@@ -16,11 +17,21 @@ func printResponse(response *http.Response) {
 	}
 	fmt.Println("}")
 }
-
-func makeRequest(u URL, m http_method) {
-	res, err := http.Get(string(u))
+func requestUrl(u URL, m http_method) (*http.Response, error) {
+	request, err := http.NewRequest(string(m), string(u), bytes.NewBuffer(nil))
 	if err != nil {
-		panic("Failed to request url " + u + "fix our entry")
+		fmt.Println("Error al crear la solicitud "+m+":", err)
+		panic("")
+	}
+	client := &http.Client{}
+	return client.Do(request)
+}
+func makeRequest(u URL, m http_method) {
+	res, err := requestUrl(u, m)
+
+	if err != nil {
+		fmt.Println("Error al hacer la solicitud "+m+":", err)
+		panic("")
 	}
 	printResponse(res)
 }
