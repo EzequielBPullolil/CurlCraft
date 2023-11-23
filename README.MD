@@ -71,7 +71,7 @@ curl -X POST -H "Content-Type: application/xml" -d '<data><name>valor_aleatorio<
 ```Bash
 CurlCraft POST http://ejemplo.com FORM -d  {
   "name": valor_aleatorio,
-  "passowrd": valor_aleatorio 
+  "password": valor_aleatorio 
   }
 ```
 ## Complex Request
@@ -81,7 +81,7 @@ When dealing with making requests to a link, one often needs to send multiple re
 ```Bash
 CurlCraft http://ejemplo.com -complex POST GET PUT DELETE FORM -d  {
   "name": valor_aleatorio,
-  "passowrd": valor_aleatorio 
+  "password": valor_aleatorio 
   }
 ```
 
