@@ -42,13 +42,3 @@ func simpleArgumentParser() (URL, http_method) {
 
 	return url, method
 }
-
-func manageRequest(isComplex bool, htmlResponse bool, url URL) {
-	if isComplex {
-		url, methods = complexArgumentParser()
-		makeComplexRequest(url, methods)
-	} else {
-		url, method = simpleArgumentParser()
-		makeRequest(url, method)
-	}
-}
