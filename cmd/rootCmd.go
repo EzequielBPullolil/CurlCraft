@@ -8,17 +8,24 @@ import (
 )
 
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(&version, "version", "v", false, "Curlcraft version")
+	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "Curlcraft version")
+	rootCmd.PersistentFlags().BoolVarP(&isComplex, "complex", "c", false, "Allow complex request")
 }
 
-var version bool
+var showVersion bool
+var isComplex bool
 var rootCmd = &cobra.Command{
 	Use: "CurlCraft [URL] [METHOD] [FLAGS..]",
 	Run: func(cmd *cobra.Command, args []string) {
-		showVersion, _ := cmd.Flags().GetBool("version")
-
 		if showVersion {
 			fmt.Println("CurlCraft 0.0.1")
+			os.Exit(0)
+		}
+
+		if isComplex {
+			fmt.Println("Complex request")
+		} else {
+
 		}
 	},
 }
