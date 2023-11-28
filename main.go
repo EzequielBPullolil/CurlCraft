@@ -9,13 +9,9 @@ var method http_method
 var methods []http_method
 
 func main() {
-	complexFlag := flag.Bool("complex", false, "Enable complex requests")
+	isComplex := flag.Bool("complex", false, "Enable complex requests")
+	isHtmlResponseAllowed := flag.Bool("h", false, "Enable complex html response")
 	flag.Parse()
-	if *complexFlag {
-		url, methods = complexArgumentParser()
-		makeComplexRequest(url, methods)
-	} else {
-		url, method = simpleArgumentParser()
-		makeRequest(url, method)
-	}
+
+	manageRequest(*isComplex, *isHtmlResponseAllowed, url)
 }
