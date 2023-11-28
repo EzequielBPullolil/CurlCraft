@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -36,7 +35,6 @@ func simpleArgumentParser() (URL, http_method) {
 			continue
 		}
 		if isURL(v) {
-			fmt.Println(v)
 			url = URL(v)
 			continue
 		}
