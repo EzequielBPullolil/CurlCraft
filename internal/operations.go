@@ -6,15 +6,12 @@ import (
 	"net/http"
 )
 
-func printResponse(response *http.Response) {
-	cookies := response.Cookies()
-	request_id := response.Header.Get("X-Request-ID")
-	fmt.Printf("Status: %s \n", response.Status)
-	fmt.Printf("HTTP: %s \n", response.Proto)
-	fmt.Printf("Content-type: %s \n", response.Header.Get("Content-Type"))
-	if request_id != "" {
-		fmt.Printf("x-request-id: %s \n", request_id)
+func printRequestId(r_id string) {
+	if r_id != "" {
+		fmt.Printf("x-request-id: %s \n", r_id)
 	}
+}
+func printCookies(cookies []*http.Cookie) {
 	if len(cookies) > 0 {
 		fmt.Println("set-cookie: {")
 		for _, cookie := range cookies {
@@ -22,6 +19,13 @@ func printResponse(response *http.Response) {
 		}
 		fmt.Println("}")
 	}
+}
+func printResponse(response *http.Response) {
+	fmt.Printf("Status: %s \n", response.Status)
+	fmt.Printf("HTTP: %s \n", response.Proto)
+	fmt.Printf("Content-type: %s \n", response.Header.Get("Content-Type"))
+	printRequestId(response.Header.Get("X-Request-ID"))
+	printCookies(response.Cookies())
 }
 func requestUrl(u string, m string) (*http.Response, error) {
 	request, err := http.NewRequest(string(m), string(u), bytes.NewBuffer(nil))
