@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ func printResponse(response *http.Response) {
 	}
 	fmt.Println("}")
 }
-func requestUrl(u URL, m http_method) (*http.Response, error) {
+func requestUrl(u string, m string) (*http.Response, error) {
 	request, err := http.NewRequest(string(m), string(u), bytes.NewBuffer(nil))
 	if err != nil {
 		fmt.Println("Error al crear la solicitud "+m+":", err)
@@ -26,7 +26,7 @@ func requestUrl(u URL, m http_method) (*http.Response, error) {
 	client := &http.Client{}
 	return client.Do(request)
 }
-func makeRequest(u URL, m http_method) {
+func MakeRequest(u string, m string) {
 	res, err := requestUrl(u, m)
 
 	if err != nil {
@@ -35,10 +35,10 @@ func makeRequest(u URL, m http_method) {
 	}
 	printResponse(res)
 }
-func makeComplexRequest(u URL, ms []http_method) {
+func makeComplexRequest(u string, ms []string) {
 	fmt.Println("Complex request to " + u)
 	for _, v := range ms {
 		fmt.Printf("Method: %s \n", v)
-		makeRequest(u, v)
+		MakeRequest(u, v)
 	}
 }
