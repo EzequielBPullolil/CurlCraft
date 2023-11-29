@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	basicRequest "github.com/EzequielK-source/CurlCraft/internal/basicRequest"
 	"github.com/spf13/cobra"
 )
 
@@ -15,8 +16,9 @@ func init() {
 var showVersion bool
 var isComplex bool
 var rootCmd = &cobra.Command{
-	Use: "CurlCraft [URL] [METHOD] [FLAGS..]",
+	Use: "CurlCraft [URL] [METHOD/S] [FLAGS..]",
 	Run: func(cmd *cobra.Command, args []string) {
+		url := args[0]
 		if showVersion {
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
@@ -25,7 +27,8 @@ var rootCmd = &cobra.Command{
 		if isComplex {
 			fmt.Println("Complex request")
 		} else {
-
+			method := args[1]
+			basicRequest.Request(url, method)
 		}
 	},
 }
