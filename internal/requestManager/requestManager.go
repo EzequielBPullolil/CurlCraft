@@ -3,7 +3,6 @@ package requestmanager
 import (
 	"github.com/EzequielK-source/CurlCraft/internal"
 	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
-	complexRequest "github.com/EzequielK-source/CurlCraft/internal/complexRequest"
 )
 
 type requestManager struct {
@@ -21,13 +20,19 @@ func (r requestManager) basicRequest() {
 	internal.MakeRequest(r.url, method)
 }
 
+func (r requestManager) complexRequest() {
+	for _, m := range r.methods {
+		internal.MakeRequest(r.url, m)
+	}
+}
+
 func RequestManager(haveBodyData bool, isComplex bool, args []string) requestManager {
 	return requestManager{haveBodyData: haveBodyData, isComplex: isComplex, url: argumentManager.Url(args), methods: argumentManager.Methods(args)}
 }
 
 func (r requestManager) MakeRequest() {
 	if r.isComplex {
-		complexRequest.Request(r.url, r.methods)
+		r.complexRequest()
 	} else {
 		r.basicRequest()
 	}
