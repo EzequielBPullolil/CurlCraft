@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
-	basicRequest "github.com/EzequielK-source/CurlCraft/internal/basicRequest"
-	complexRequest "github.com/EzequielK-source/CurlCraft/internal/complexRequest"
+	requestmanager "github.com/EzequielK-source/CurlCraft/internal/requestManager"
 	"github.com/spf13/cobra"
 )
 
@@ -34,17 +32,15 @@ var rootCmd = &cobra.Command{
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
 		}
-		url := argumentManager.Url(args)
-		if isComplex {
-			complexRequest.Request(url, argumentManager.Methods(args))
-		} else {
-			basicRequest.Request(url, argumentManager.Method(args))
-		}
+		requestManager := requestmanager.RequestManager(haveBodyData, isComplex)
+		requestManager.MakeRequest(args)
+
 	},
 }
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
+		os.Exit(1)
 	}
 }
