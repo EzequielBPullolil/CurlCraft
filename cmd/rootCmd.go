@@ -32,8 +32,8 @@ var rootCmd = &cobra.Command{
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
 		}
-		requestManager := requestmanager.RequestManager(haveBodyData, isComplex)
-		requestManager.MakeRequest(args)
+		requestManager := requestmanager.RequestManager(haveBodyData, isComplex, args)
+		requestManager.MakeRequest()
 
 	},
 }
