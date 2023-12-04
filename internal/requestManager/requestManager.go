@@ -17,6 +17,20 @@ type requestManager struct {
 	client      http.Client
 	bodyData    io.Reader
 }
+
+func (r requestManager) request(method string) {
+	request, err := http.NewRequest(method, r.url, r.bodyData)
+	if err != nil {
+		panic(err)
+	}
+
+	res, err := r.client.Do(request)
+
+	if err != nil {
+		panic(err)
+	}
+
+	internal.PrintResponse(res)
 }
 
 func (r requestManager) basicRequest() {
@@ -24,12 +38,12 @@ func (r requestManager) basicRequest() {
 	if len(r.methods) > 0 {
 		method = r.methods[len(r.methods)-1]
 	}
-	internal.MakeRequest(r.url, method)
+	r.request(method)
 }
 
 func (r requestManager) complexRequest() {
 	for _, m := range r.methods {
-		internal.MakeRequest(r.url, m)
+		r.request(m)
 	}
 }
 
@@ -51,4 +65,6 @@ func (r requestManager) MakeRequest() {
 	} else {
 		r.basicRequest()
 	}
+
+	r.client.CloseIdleConnections()
 }
