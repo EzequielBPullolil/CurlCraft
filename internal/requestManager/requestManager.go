@@ -1,7 +1,6 @@
 package requestmanager
 
 import (
-	"bytes"
 	"io"
 	"net/http"
 
@@ -48,14 +47,14 @@ func (r requestManager) complexRequest() {
 }
 
 func RequestManager(haveBodyData bool, isComplex bool, args []string) requestManager {
-	url, methods, contentType := argumentManager.ManageArguments(haveBodyData, args)
+	url, methods, contentType, bodyData := argumentManager.ManageArguments(haveBodyData, args)
 	return requestManager{
 		isComplex:   isComplex,
 		url:         url,
 		methods:     methods,
 		contentType: contentType,
 		client:      http.Client{},
-		bodyData:    bytes.NewBuffer(nil),
+		bodyData:    bodyData,
 	}
 }
 
