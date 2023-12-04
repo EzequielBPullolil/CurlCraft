@@ -30,13 +30,13 @@ func printResponse(response *http.Response) {
 func MakeRequest(url, method string) {
 	request, err := http.NewRequest(method, url, bytes.NewBuffer(nil))
 	if err != nil {
-		return
+		panic(err)
 	}
 
 	client := &http.Client{}
 	res, err := client.Do(request)
 	if err != nil {
-		return
+		panic(err)
 	}
 	printResponse(res)
 }
