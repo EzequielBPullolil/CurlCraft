@@ -10,6 +10,7 @@ type requestManager struct {
 	isComplex    bool
 	url          string
 	methods      []string
+	contentType  string
 }
 
 func (r requestManager) basicRequest() {
@@ -27,7 +28,13 @@ func (r requestManager) complexRequest() {
 }
 
 func RequestManager(haveBodyData bool, isComplex bool, args []string) requestManager {
-	return requestManager{haveBodyData: haveBodyData, isComplex: isComplex, url: argumentManager.Url(args), methods: argumentManager.Methods(args)}
+	return requestManager{
+		haveBodyData: haveBodyData,
+		isComplex:    isComplex,
+		url:          argumentManager.Url(args),
+		methods:      argumentManager.Methods(args),
+		contentType:  argumentManager.ContentType(args),
+	}
 }
 
 func (r requestManager) MakeRequest() {

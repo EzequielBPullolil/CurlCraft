@@ -19,3 +19,9 @@ func IsHttpMethod(e string) bool {
 	e = strings.ToUpper(e)
 	return e == POST || e == GET || e == DELETE || e == PUT || e == PATCH
 }
+
+func IsContentType(e string) bool {
+	e = strings.ToUpper(e)
+
+	return e == "JSON" || e == "FORM" || e == "PLAIN" || e == "XML" || e == "html" || e == "XFORM"
+}

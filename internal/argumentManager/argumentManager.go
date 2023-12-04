@@ -31,3 +31,14 @@ func Method(args []string) string {
 
 	return "GET"
 }
+
+func ContentType(args []string) string {
+	var contentType string
+
+	for _, v := range args[1:] {
+		if internal.IsContentType(v) {
+			contentType = v
+		}
+	}
+	return contentType
+}
