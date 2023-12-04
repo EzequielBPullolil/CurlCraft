@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	internal "github.com/EzequielK-source/CurlCraft/internal"
+	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
 	basicRequest "github.com/EzequielK-source/CurlCraft/internal/basicRequest"
+	complexRequest "github.com/EzequielK-source/CurlCraft/internal/complexRequest"
 	"github.com/spf13/cobra"
 )
 
@@ -19,27 +20,15 @@ var isComplex bool
 var rootCmd = &cobra.Command{
 	Use: "CurlCraft [URL] [METHOD/S] [FLAGS..]",
 	Run: func(cmd *cobra.Command, args []string) {
-		url := args[0]
 		if showVersion {
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
 		}
-
+		url := argumentManager.Url(args)
 		if isComplex {
-			fmt.Println("Complex request")
-			for _, v := range args[1:] {
-				if internal.IsHttpMethod(v) {
-					basicRequest.Request(url, v)
-				}
-			}
+			complexRequest.Request(url, argumentManager.Methods(args))
 		} else {
-			if len(args) > 1 {
-				method := args[1]
-				basicRequest.Request(url, method)
-			} else {
-				basicRequest.Request(url, "get")
-			}
-
+			basicRequest.Request(url, argumentManager.Method(args))
 		}
 	},
 }
