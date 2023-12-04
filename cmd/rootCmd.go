@@ -10,13 +10,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var showVersion bool
+var isComplex bool
+
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "Curlcraft version")
 	rootCmd.PersistentFlags().BoolVarP(&isComplex, "complex", "c", false, "Allow complex request")
 }
 
-var showVersion bool
-var isComplex bool
 var rootCmd = &cobra.Command{
 	Use: "CurlCraft [URL] [METHOD/S] [FLAGS..]",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -35,7 +36,7 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		panic(err)
 		os.Exit(1)
 	}
 }

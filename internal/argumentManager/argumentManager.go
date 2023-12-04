@@ -1,7 +1,7 @@
 package argumentmanager
 
 import (
-	internal "github.com/EzequielK-source/CurlCraft/internal"
+	"github.com/EzequielK-source/CurlCraft/internal"
 )
 
 func Url(args []string) string {
