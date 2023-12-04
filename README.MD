@@ -22,29 +22,21 @@ In CurlCraft, akin to CURL, when a request is made to an HTTP/HTTPS link without
 ```
 To obtain the file/response from the link, you need to make the request by adding the -h flag.
 ```Bash
-  CurlCraft http://ejemplo.com -h
-  OR
-  CurlCraft -h http://ejemplo.com 
+  CurlCraft http://ejemplo.com -h 
 ```
 ## Request with http methods
 In CurlCraft, requests can be created with any HTTP method using its keyword.
-
-It is entirely valid to place the HTTP method before or after the link in CurlCraft. Additionally, the method can be in either uppercase or lowercase; CurlCraft is not very strict about these cases.
 
 #### Request
 ```Bash
   CurlCraft http://ejemplo.com [METHOD]
 ```
-
-```Bash
-  CurlCraft [METHOD] http://ejemplo.com 
-```
 The method can be any of those used in HTTP.
 
 ### Request with data
-Just like in Curl, you can send data in requests with formats like form, JSON, XML, etc., in CurlCraft. After specifying the link, you need to indicate the desired format and use JSON syntax to specify the key-value pair of the data you want the request to include.
+Just like in Curl, you can send data in requests with formats like form, JSON, XML, etc, in CurlCraft. After specifying the link, you need to indicate the desired format and use JSON syntax to specify the key-value pair of the data you want the request to include.
 ```Bash
-  CurlCraft [METHOD] http://ejemplo.com [content-type] -d {
+  CurlCraft http://ejemplo.com [METHOD] [content-type] -d {
     "key": value,
     "key2": value
   }
@@ -52,11 +44,11 @@ Just like in Curl, you can send data in requests with formats like form, JSON, X
 
 ### Comparison of a complete request between Curl and Curl Craft
 ```Bash
-curl -X POST -d "name=valor_aleatorio&password=valor_aleatorio" http://ejemplo.com
+curl http://ejemplo.com -X POST -d "name=valor_aleatorio&password=valor_aleatorio" 
 ```
 
 ```Bash
-CurlCraft POST http://ejemplo.com FORM -d  {
+CurlCraft http://ejemplo.com POST  FORM -d  {
   "name": valor_aleatorio,
   "passowrd": valor_aleatorio 
   }
