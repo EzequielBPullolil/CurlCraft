@@ -12,17 +12,19 @@ import (
 )
 
 var showVersion bool
+var haveBodyData bool
 var isComplex bool
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "Curlcraft version")
 	rootCmd.PersistentFlags().BoolVarP(&isComplex, "complex", "c", false, "Allow complex request")
+	rootCmd.PersistentFlags().BoolVarP(&haveBodyData, "bodyData", "d", false, "Allow make request with data")
 }
 
 var rootCmd = &cobra.Command{
-	Use: "CurlCraft [URL] [METHOD/S] [FLAGS..]",
+	Use: "CurlCraft [URL] [METHOD/S] [CONTENT-TYPE] [FLAGS..]",
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
+		if len(args) < 1 && !showVersion {
 			return errors.New("Requires at least URL arg")
 		}
 		return nil
