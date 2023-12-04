@@ -1,16 +1,22 @@
 package requestmanager
 
 import (
+	"bytes"
+	"io"
+	"net/http"
+
 	"github.com/EzequielK-source/CurlCraft/internal"
 	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
 )
 
 type requestManager struct {
-	haveBodyData bool
-	isComplex    bool
-	url          string
-	methods      []string
-	contentType  string
+	isComplex   bool
+	url         string
+	methods     []string
+	contentType string
+	client      http.Client
+	bodyData    io.Reader
+}
 }
 
 func (r requestManager) basicRequest() {
@@ -28,12 +34,14 @@ func (r requestManager) complexRequest() {
 }
 
 func RequestManager(haveBodyData bool, isComplex bool, args []string) requestManager {
+	url, methods, contentType := argumentManager.ManageArguments(haveBodyData, args)
 	return requestManager{
-		haveBodyData: haveBodyData,
-		isComplex:    isComplex,
-		url:          argumentManager.Url(args),
-		methods:      argumentManager.Methods(args),
-		contentType:  argumentManager.ContentType(args),
+		isComplex:   isComplex,
+		url:         url,
+		methods:     methods,
+		contentType: contentType,
+		client:      http.Client{},
+		bodyData:    bytes.NewBuffer(nil),
 	}
 }
 
