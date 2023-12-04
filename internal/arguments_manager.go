@@ -6,7 +6,7 @@ import (
 )
 
 func appendMethod(a []http_method, e string) []http_method {
-	if isHttpMethod(strings.ToUpper(e)) {
+	if IsHttpMethod(strings.ToUpper(e)) {
 		return append(a, http_method(e))
 	} else {
 		return a
@@ -30,7 +30,7 @@ func simpleArgumentParser() (URL, http_method) {
 	var method http_method
 	var url URL
 	for _, v := range os.Args[1:] {
-		if isHttpMethod(strings.ToUpper(v)) {
+		if IsHttpMethod(strings.ToUpper(v)) {
 			method = http_method(v)
 			continue
 		}

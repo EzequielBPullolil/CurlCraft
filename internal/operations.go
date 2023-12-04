@@ -27,28 +27,28 @@ func printResponse(response *http.Response) {
 	printRequestId(response.Header.Get("X-Request-ID"))
 	printCookies(response.Cookies())
 }
-func requestUrl(u string, m string) (*http.Response, error) {
-	request, err := http.NewRequest(string(m), string(u), bytes.NewBuffer(nil))
+func requestUrl(url string, method string) (*http.Response, error) {
+	request, err := http.NewRequest(string(method), string(url), bytes.NewBuffer(nil))
 	if err != nil {
-		fmt.Println("Error al crear la solicitud "+m+":", err)
+		fmt.Println("Error al crear la solicitud "+method+":", err)
 		panic("")
 	}
 	client := &http.Client{}
 	return client.Do(request)
 }
-func MakeRequest(u string, m string) {
-	res, err := requestUrl(u, m)
+func MakeRequest(url string, method string) {
+	res, err := requestUrl(url, method)
 
 	if err != nil {
-		fmt.Println("Error al hacer la solicitud "+m+":", err)
+		fmt.Println("Error al hacer la solicitud "+method+":", err)
 		panic("")
 	}
 	printResponse(res)
 }
-func makeComplexRequest(u string, ms []string) {
-	fmt.Println("Complex request to " + u)
-	for _, v := range ms {
+func makeComplexRequest(url string, methods []string) {
+	fmt.Println("Complex request to " + url)
+	for _, v := range methods {
 		fmt.Printf("Method: %s \n", v)
-		MakeRequest(u, v)
+		MakeRequest(url, v)
 	}
 }

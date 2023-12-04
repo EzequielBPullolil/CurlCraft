@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	internal "github.com/EzequielK-source/CurlCraft/internal"
 	basicRequest "github.com/EzequielK-source/CurlCraft/internal/basicRequest"
 	"github.com/spf13/cobra"
 )
@@ -26,9 +27,19 @@ var rootCmd = &cobra.Command{
 
 		if isComplex {
 			fmt.Println("Complex request")
+			for _, v := range args[1:] {
+				if internal.IsHttpMethod(v) {
+					basicRequest.Request(url, v)
+				}
+			}
 		} else {
-			method := args[1]
-			basicRequest.Request(url, method)
+			if len(args) > 1 {
+				method := args[1]
+				basicRequest.Request(url, method)
+			} else {
+				basicRequest.Request(url, "get")
+			}
+
 		}
 	},
 }

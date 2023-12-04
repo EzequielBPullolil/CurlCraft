@@ -15,7 +15,7 @@ const (
 	PATCH  = "PATCH"
 )
 
-func isHttpMethod(e string) bool {
+func IsHttpMethod(e string) bool {
 	e = strings.ToUpper(e)
 	return e == POST || e == GET || e == DELETE || e == PUT || e == PATCH
 }
