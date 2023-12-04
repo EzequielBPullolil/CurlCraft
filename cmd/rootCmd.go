@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -20,6 +21,12 @@ func init() {
 
 var rootCmd = &cobra.Command{
 	Use: "CurlCraft [URL] [METHOD/S] [FLAGS..]",
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 {
+			return errors.New("Requires at least URL arg")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		if showVersion {
 			fmt.Println("CurlCraft 0.0.1")
@@ -36,7 +43,6 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		panic(err)
-		os.Exit(1)
+		fmt.Println(err)
 	}
 }
