@@ -1,6 +1,7 @@
 package requestmanager
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 
@@ -25,6 +26,8 @@ func (r requestManager) request(method string) {
 	}
 
 	request.Header.Set("Content-Type", r.contentType)
+
+	fmt.Println("Method: " + method)
 	res, err := r.client.Do(request)
 
 	if err != nil {
