@@ -1,12 +1,12 @@
 package requestmanager
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/EzequielK-source/CurlCraft/internal"
 	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
+	"github.com/fatih/color"
 )
 
 type requestManager struct {
@@ -27,7 +27,7 @@ func (r requestManager) request(method string) {
 
 	request.Header.Set("Content-Type", r.contentType)
 
-	fmt.Println("Method: " + method)
+	color.Green("Method: " + method)
 	res, err := r.client.Do(request)
 
 	if err != nil {
