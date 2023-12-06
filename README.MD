@@ -22,7 +22,7 @@ In CurlCraft, akin to CURL, when a request is made to an HTTP/HTTPS link without
 ```
 To obtain the file/response from the link, you need to make the request by adding the -h flag.
 ```Bash
-  CurlCraft http://ejemplo.com -h 
+  CurlCraft http://ejemplo.com -b 
 ```
 ## Request with http methods
 In CurlCraft, requests can be created with any HTTP method using its keyword.
