@@ -1,15 +1,17 @@
-package argumentmanager
+package test
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"testing"
+
+	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
 )
 
 func TestXmlFormat(t *testing.T) {
 	data := "{\"nombre\":\"ezequiel\", \"password\":\"123123asd\"}"
 	esperado := "<data><nombre>ezequiel</nombre><password>123123asd</password></data>"
-	resultado, _ := ioutil.ReadAll(xml(data))
+	resultado, _ := io.ReadAll(argumentManager.ContentTypeEncoder("XML", data))
 	if string(resultado) != esperado {
 		fmt.Println(esperado)
 		t.Errorf("Resultado no esperado %s", resultado)
@@ -19,7 +21,7 @@ func TestXmlFormat(t *testing.T) {
 func TestSimpleKeyValue(t *testing.T) {
 	data := "{\"nombre\":\"ezequiel\", \"password\":\"123123asd\"}"
 	esperado := "nombre=ezequiel&password=123123asd"
-	resultado, _ := ioutil.ReadAll(simpleKeyValue(data))
+	resultado, _ := io.ReadAll(argumentManager.ContentTypeEncoder("FORM", data))
 	if string(resultado) != esperado {
 		fmt.Println(esperado)
 		t.Errorf("Resultado no esperado %s", resultado)
