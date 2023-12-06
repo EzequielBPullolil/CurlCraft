@@ -25,9 +25,18 @@ func ManageArguments(args []string) (string, []string, string) {
 	return args[0], methods, contentType
 }
 func ContentTypeEncoder(contentType string, data string) io.Reader {
-	if !internal.IsContentType(contentType) {
-		panic("Not valid content type")
+	return encondedContentType(contentType, data)
+}
+
+func encondedContentType(contentType string, data string) io.Reader {
+	if contentType == "XML" {
+		return xml(data)
+	} else if contentType == "JSON" {
+		return json(data)
+	} else {
+		return simpleKeyValue(data)
 	}
+}
 
 	return encondedContentType(contentType, data)
 }
