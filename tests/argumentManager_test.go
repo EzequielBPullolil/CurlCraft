@@ -21,9 +21,11 @@ func TestXmlFormat(t *testing.T) {
 func TestSimpleKeyValue(t *testing.T) {
 	data := "{\"nombre\":\"ezequiel\", \"password\":\"123123asd\"}"
 	esperado := "nombre=ezequiel&password=123123asd"
-	resultado, _ := io.ReadAll(argumentManager.ContentTypeEncoder("FORM", data))
-	if string(resultado) != esperado {
-		fmt.Println(esperado)
-		t.Errorf("Resultado no esperado %s", resultado)
+	for _, v := range []string{"FORM", "PLAIN", "HTML"} {
+		resultado, _ := io.ReadAll(argumentManager.ContentTypeEncoder(v, data))
+		if string(resultado) != esperado {
+			fmt.Println(esperado)
+			t.Errorf("Resultado no esperado %s", resultado)
+		}
 	}
 }
