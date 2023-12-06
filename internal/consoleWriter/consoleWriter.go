@@ -11,22 +11,22 @@ import (
 
 func printRequestId(r_id string) {
 	if r_id != "" {
-		color.Magenta("x-request-id: %s \n", r_id)
+		color.Magenta("x-request-id: %s \n", InfoSp(r_id))
 	}
 }
 func printCookies(cookies []*http.Cookie) {
 	if len(cookies) > 0 {
-		color.Blue("set-cookie: {")
+		ExtensiveDataPL("set-cookie: {")
 		for _, cookie := range cookies {
-			color.Blue("	\"%s\": \"%s\" \n", cookie.Name, cookie.Value)
+			fmt.Printf("	\"%s\": \"%s\" \n", SuccesSp(cookie.Name), InfoSp(cookie.Value))
 		}
-		color.Blue("}")
+		ExtensiveDataPL("}")
 	}
 }
 func WriteResponse(response *http.Response, showBodyResponse bool) {
 	printStatusCode(response.Status)
 	color.Cyan("HTTP: %s \n", response.Proto)
-	color.Magenta("Content-type: %s \n", response.Header.Get("Content-Type"))
+	color.Magenta("Content-type: %s \n", InfoSp(response.Header.Get("Content-Type")))
 	printRequestId(response.Header.Get("X-Request-ID"))
 	printCookies(response.Cookies())
 	if showBodyResponse {
