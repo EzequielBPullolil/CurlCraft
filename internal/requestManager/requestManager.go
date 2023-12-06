@@ -22,7 +22,8 @@ func (r requestManager) request(method string) {
 	if err != nil {
 		panic(err)
 	}
-	request.Header.Set("Content-Type", "application/json")
+
+	request.Header.Set("Content-Type", r.contentType)
 	res, err := r.client.Do(request)
 
 	if err != nil {

@@ -23,5 +23,5 @@ func IsHttpMethod(e string) bool {
 func IsContentType(e string) bool {
 	e = strings.ToUpper(e)
 
-	return e == "JSON" || e == "FORM" || e == "PLAIN" || e == "XML" || e == "html" || e == "XFORM"
+	return e == "JSON" || e == "FORM" || e == "PLAIN" || e == "XML" || e == "HTML" || e == "XFORM"
 }

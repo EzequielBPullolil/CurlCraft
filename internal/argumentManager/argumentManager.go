@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/EzequielK-source/CurlCraft/internal"
 )
@@ -23,7 +24,22 @@ func ManageArguments(args []string) (string, []string, string) {
 			continue
 		}
 	}
-	return args[0], methods, contentType
+	return args[0], methods, formatContentType(contentType)
+}
+
+func formatContentType(content string) string {
+	content = strings.ToUpper(content)
+	if content == "HTML" {
+		return "text/html"
+	} else if content == "XML" {
+		return "application/xml"
+	} else if content == "XFORM" {
+		return "application/x-www-form-urlencoded"
+	} else if content == "FORM" {
+		return "application/form-data"
+	} else {
+		return "application/json"
+	}
 }
 func ContentTypeEncoder(contentType string, data string) io.Reader {
 	return encondedContentType(contentType, data)
