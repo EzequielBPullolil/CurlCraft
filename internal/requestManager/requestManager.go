@@ -47,7 +47,8 @@ func (r requestManager) complexRequest() {
 }
 
 func RequestManager(body string, isComplex bool, args []string) requestManager {
-	url, methods, contentType, bodyData := argumentManager.ManageArguments(args)
+	url, methods, contentType := argumentManager.ManageArguments(args)
+	bodyData := argumentManager.ContentTypeEncoder(contentType, body)
 	return requestManager{
 		isComplex:   isComplex,
 		url:         url,
