@@ -9,12 +9,13 @@ import (
 )
 
 type requestManager struct {
-	isComplex   bool
-	url         string
-	methods     []string
-	contentType string
-	client      http.Client
-	bodyData    io.Reader
+	isComplex        bool
+	showBodyResponse bool
+	url              string
+	methods          []string
+	contentType      string
+	client           http.Client
+	bodyData         io.Reader
 }
 
 func (r requestManager) request(method string) {
@@ -30,7 +31,7 @@ func (r requestManager) request(method string) {
 		panic(err)
 	}
 
-	internal.PrintResponse(res)
+	internal.PrintResponse(res, r.showBodyResponse)
 }
 
 func (r requestManager) basicRequest() {
@@ -47,16 +48,17 @@ func (r requestManager) complexRequest() {
 	}
 }
 
-func RequestManager(body string, isComplex bool, args []string) requestManager {
+func RequestManager(body string, isComplex bool, showBodyResponse bool, args []string) requestManager {
 	url, methods, contentType := argumentManager.ManageArguments(args)
 	bodyData := argumentManager.ContentTypeEncoder(contentType, body)
 	return requestManager{
-		isComplex:   isComplex,
-		url:         url,
-		methods:     methods,
-		contentType: contentType,
-		client:      http.Client{},
-		bodyData:    bodyData,
+		isComplex:        isComplex,
+		url:              url,
+		methods:          methods,
+		contentType:      contentType,
+		client:           http.Client{},
+		bodyData:         bodyData,
+		showBodyResponse: showBodyResponse,
 	}
 }
 

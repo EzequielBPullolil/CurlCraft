@@ -12,11 +12,13 @@ import (
 var showVersion bool
 var bodyData string
 var isComplex bool
+var displayHTMLBody bool
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "Curlcraft version")
 	rootCmd.PersistentFlags().BoolVarP(&isComplex, "complex", "c", false, "Allow complex request")
 	rootCmd.PersistentFlags().StringVarP(&bodyData, "body", "d", "", "Allow make request with data")
+	rootCmd.PersistentFlags().BoolVarP(&displayHTMLBody, "display-html-body", "b", false, "Display HTML content in the response body")
 }
 
 var rootCmd = &cobra.Command{
@@ -33,7 +35,7 @@ var rootCmd = &cobra.Command{
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
 		}
-		requestManager := requestmanager.RequestManager(body, isComplex, args)
+		requestManager := requestmanager.RequestManager(body, isComplex, displayHTMLBody, args)
 		requestManager.MakeRequest()
 
 	},

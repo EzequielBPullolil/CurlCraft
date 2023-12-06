@@ -2,7 +2,7 @@ package internal
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -20,12 +20,14 @@ func printCookies(cookies []*http.Cookie) {
 		fmt.Println("}")
 	}
 }
-func PrintResponse(response *http.Response) {
+func PrintResponse(response *http.Response, showBodyResponse bool) {
 	fmt.Printf("Status: %s \n", response.Status)
 	fmt.Printf("HTTP: %s \n", response.Proto)
 	fmt.Printf("Content-type: %s \n", response.Header.Get("Content-Type"))
 	printRequestId(response.Header.Get("X-Request-ID"))
 	printCookies(response.Cookies())
-	body, _ := ioutil.ReadAll(response.Body)
-	fmt.Println(string(body))
+	if showBodyResponse {
+		body, _ := io.ReadAll(response.Body)
+		fmt.Println(string(body))
+	}
 }
