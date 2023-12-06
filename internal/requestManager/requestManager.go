@@ -4,8 +4,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/EzequielK-source/CurlCraft/internal"
 	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
+	consoleWriter "github.com/EzequielK-source/CurlCraft/internal/consoleWriter"
 	"github.com/fatih/color"
 )
 
@@ -34,7 +34,7 @@ func (r requestManager) request(method string) {
 		panic(err)
 	}
 
-	internal.PrintResponse(res, r.showBodyResponse)
+	consoleWriter.PrintResponse(res, r.showBodyResponse)
 }
 
 func (r requestManager) basicRequest() {
