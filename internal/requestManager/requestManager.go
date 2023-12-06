@@ -6,7 +6,6 @@ import (
 
 	argumentManager "github.com/EzequielK-source/CurlCraft/internal/argumentManager"
 	consoleWriter "github.com/EzequielK-source/CurlCraft/internal/consoleWriter"
-	"github.com/fatih/color"
 )
 
 type requestManager struct {
@@ -27,14 +26,14 @@ func (r requestManager) request(method string) {
 
 	request.Header.Set("Content-Type", r.contentType)
 
-	color.Green("Method: " + method)
+	consoleWriter.InfoPL("Method: " + method)
 	res, err := r.client.Do(request)
 
 	if err != nil {
 		panic(err)
 	}
 
-	consoleWriter.PrintResponse(res, r.showBodyResponse)
+	consoleWriter.WriteResponse(res, r.showBodyResponse)
 }
 
 func (r requestManager) basicRequest() {

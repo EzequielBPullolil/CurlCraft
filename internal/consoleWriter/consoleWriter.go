@@ -23,7 +23,7 @@ func printCookies(cookies []*http.Cookie) {
 		color.Blue("}")
 	}
 }
-func PrintResponse(response *http.Response, showBodyResponse bool) {
+func WriteResponse(response *http.Response, showBodyResponse bool) {
 	printStatusCode(response.Status)
 	color.Cyan("HTTP: %s \n", response.Proto)
 	color.Magenta("Content-type: %s \n", response.Header.Get("Content-Type"))
@@ -35,11 +35,15 @@ func PrintResponse(response *http.Response, showBodyResponse bool) {
 	}
 }
 func printStatusCode(statusCode string) {
-	if strings.Contains(statusCode, "2") {
-		color.Cyan("Status: %s \n", statusCode)
+	var colored string
+	if strings.Contains(statusCode, "3") {
+		colored = RedirectSp(statusCode)
 	} else if strings.Contains(statusCode, "4") {
-		color.Red("Status: %s \n", statusCode)
+		colored = FailSp(statusCode)
+	} else if strings.Contains(statusCode, "5") {
+		colored = ServerErrorSp(statusCode)
 	} else {
-		color.Blue("Status: %s \n", statusCode)
+		colored = SuccesSp(statusCode)
 	}
+	color.Magenta("Satuts: %s", colored)
 }
