@@ -22,7 +22,7 @@ func (r requestManager) request(method string) {
 	if err != nil {
 		panic(err)
 	}
-
+	request.Header.Set("Content-Type", "application/json")
 	res, err := r.client.Do(request)
 
 	if err != nil {
@@ -46,8 +46,8 @@ func (r requestManager) complexRequest() {
 	}
 }
 
-func RequestManager(haveBodyData bool, isComplex bool, args []string) requestManager {
-	url, methods, contentType, bodyData := argumentManager.ManageArguments(haveBodyData, args)
+func RequestManager(body string, isComplex bool, args []string) requestManager {
+	url, methods, contentType, bodyData := argumentManager.ManageArguments(args)
 	return requestManager{
 		isComplex:   isComplex,
 		url:         url,

@@ -10,13 +10,13 @@ import (
 )
 
 var showVersion bool
-var haveBodyData bool
+var bodyData string
 var isComplex bool
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "Curlcraft version")
 	rootCmd.PersistentFlags().BoolVarP(&isComplex, "complex", "c", false, "Allow complex request")
-	rootCmd.PersistentFlags().BoolVarP(&haveBodyData, "bodyData", "d", false, "Allow make request with data")
+	rootCmd.PersistentFlags().StringVarP(&bodyData, "body", "d", "", "Allow make request with data")
 }
 
 var rootCmd = &cobra.Command{
@@ -28,11 +28,12 @@ var rootCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
+		body, _ := cmd.Flags().GetString("body")
 		if showVersion {
 			fmt.Println("CurlCraft 0.0.1")
 			os.Exit(0)
 		}
-		requestManager := requestmanager.RequestManager(haveBodyData, isComplex, args)
+		requestManager := requestmanager.RequestManager(body, isComplex, args)
 		requestManager.MakeRequest()
 
 	},

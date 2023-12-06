@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -25,4 +26,6 @@ func PrintResponse(response *http.Response) {
 	fmt.Printf("Content-type: %s \n", response.Header.Get("Content-Type"))
 	printRequestId(response.Header.Get("X-Request-ID"))
 	printCookies(response.Cookies())
+	body, _ := ioutil.ReadAll(response.Body)
+	fmt.Println(string(body))
 }
