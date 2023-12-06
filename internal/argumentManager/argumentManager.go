@@ -2,6 +2,7 @@ package argumentmanager
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 
 	"github.com/EzequielK-source/CurlCraft/internal"
@@ -38,6 +39,58 @@ func encondedContentType(contentType string, data string) io.Reader {
 	}
 }
 
-	return encondedContentType(contentType, data)
+func json(data string) io.Reader {
+	return bytes.NewBuffer([]byte(data))
 }
+func simpleKeyValue(data string) io.Reader {
+	var finalData string
+	for _, v := range data {
+		if v == ' ' {
+			continue
+		}
+		if v == ',' {
+			finalData = finalData + "&"
+		} else if v == ':' {
+			finalData = finalData + "="
+		} else if v == '"' {
+			continue
+		} else if v != '{' && v != '}' {
+			finalData = finalData + string(v)
+		}
+	}
+
+	return bytes.NewBuffer([]byte(finalData))
+}
+
+func xml(data string) io.Reader {
+	finalData := "<data>"
+	for i := 0; i < len(data); i++ {
+		if data[i] == '"' {
+			finalData = finalData + crearEtiqueta(data, &i)
+		}
+	}
+	finalData = finalData + "</data>"
+	return bytes.NewBuffer([]byte(finalData))
+}
+
+func crearEtiqueta(data string, indice *int) string {
+	var key string
+	var value string
+	cantidadDeComs := 4
+	for cantidadDeComs > 0 {
+		if data[*indice] != ' ' && data[*indice] != ':' {
+
+			if data[*indice] == '"' {
+				cantidadDeComs--
+			} else {
+				if cantidadDeComs > 2 {
+					key = key + string(data[*indice])
+				} else {
+					value = value + string(data[*indice])
+				}
+			}
+		}
+		*indice++
+	}
+	return fmt.Sprintf("<%s>%s</%s>", key, value, key)
 }
