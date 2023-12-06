@@ -48,10 +48,7 @@ curl http://ejemplo.com -X POST -d "name=valor_aleatorio&password=valor_aleatori
 ```
 
 ```Bash
-CurlCraft http://ejemplo.com POST  FORM -d  {
-  "name": valor_aleatorio,
-  "passowrd": valor_aleatorio 
-  }
+CurlCraft http://ejemplo.com POST  FORM -d  '{"name": valor_aleatorio, "passowrd": valor_aleatorio }'
 ```
 Please be aware that, even if the content-type is set to FORM, the body syntax consistently follows the JSON format in all requests. Why is this the case? It is designed to alleviate users from the burden of implementing intricate syntax when creating requests.
 
@@ -61,20 +58,14 @@ curl -X POST -H "Content-Type: application/xml" -d '<data><name>valor_aleatorio<
 
 ```
 ```Bash
-CurlCraft POST http://ejemplo.com FORM -d  {
-  "name": valor_aleatorio,
-  "password": valor_aleatorio 
-  }
+CurlCraft POST http://ejemplo.com FORM -d  '{ "name": valor_aleatorio,"password": valor_aleatorio }'
 ```
 ## Complex Request
 When dealing with making requests to a link, one often needs to send multiple requests to the same link with different HTTP methods. Well, this can be addressed using the -complex flag.
 
 
 ```Bash
-CurlCraft http://ejemplo.com -complex POST GET PUT DELETE FORM -d  {
-  "name": valor_aleatorio,
-  "password": valor_aleatorio 
-  }
+CurlCraft http://ejemplo.com -complex POST GET PUT DELETE FORM -d  '{"name": valor_aleatorio,"password": valor_aleatorio }'
 ```
 
 By utilizing the -complex flag, you have the flexibility to supply the command with multiple distinct HTTP methods following the -complex flag. Notably, the order holds significance. If you furnish the command with methods such as POST, GET, PUT, DELETE, it will adhere to the specified sequence—initiating a POST request initially, progressing to the subsequent GET request after the completion of each preceding request, and continuing accordingly.
