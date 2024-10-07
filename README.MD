@@ -1,5 +1,5 @@
 # CurlCraft
-A Go-developed CLI aimed at enhancing the CURL tool by adding functionalities to improve the user experience and overall usability.
+> A Go-developed CLI aimed at enhancing the CURL tool by adding functionalities to improve the user experience and overall usability.
 
 ## Use
 Most operations that can be carried out in CURL can be performed in CurlCraft with minimal adjustments.
